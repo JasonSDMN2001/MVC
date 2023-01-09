@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol.Plugins;
 using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
@@ -155,6 +156,38 @@ namespace WebApplication1.Controllers
         private bool UserExists(string id)
         {
           return _context.Users.Any(e => e.Username == id);
+        }
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(User model)
+        {
+            var User = from m in _context.Users select m;
+            User = User.Where(s => s.Username.Contains(model.Username));
+            if (User.Count() != 0)
+            {
+                if (User.First().Password == model.Password)
+                {
+                    return RedirectToAction("Success");
+                }
+                return RedirectToAction("Fail");
+            }
+            else { 
+            return RedirectToAction("Fail");
+            }
+        }
+
+        public IActionResult Success()
+        {
+            return View("Home");
+        }
+
+        public IActionResult Fail()
+        {
+            return View("Login");
         }
     }
 }
