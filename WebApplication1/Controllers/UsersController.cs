@@ -182,7 +182,8 @@ namespace WebApplication1.Controllers
 
         public IActionResult Success()
         {
-            return View("Home");
+            return View("Welcome");
+           
         }
 
         public IActionResult Fail()
