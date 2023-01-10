@@ -1,14 +1,19 @@
-﻿@RenderSection("scripts", required: false)
-<!DOCTYPE html>
-
-<html>
+﻿<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
+    <meta charset="utf-8" />
+    <title>Login Page</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 </head>
 <body>
-    <div>
-        @RenderBody()
+    <header>
+        
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
     </div>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
