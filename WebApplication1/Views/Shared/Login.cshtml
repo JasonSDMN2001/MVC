@@ -1,10 +1,11 @@
 ﻿@model WebApplication1.Models.User
 @{
     ViewData["Title"] = "Login";
+    //Layout = "~/Views/Shared/_Layout1.cshtml";
+    Layout = "_Layout1";
 }
 
 <h1>Login</h1>
-<body>
 <div class="row">
     <div class="col-md-4">
         <form asp-actioSn="Login" asp-controller="Users">
@@ -25,9 +26,3 @@
         </form>
     </div>
 </div>
-</body>
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-    }

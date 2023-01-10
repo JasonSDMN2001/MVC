@@ -171,23 +171,21 @@ namespace WebApplication1.Controllers
             {
                 if (User.First().Password == model.Password)
                 {
-                    return RedirectToAction("Success");
+                    return View("Welcome");
                 }
-                return RedirectToAction("Fail");
+                return RedirectToAction("Login");
             }
             else { 
-            return RedirectToAction("Fail");
+            return RedirectToAction("Login");
             }
         }
 
-        public IActionResult Success()
-        {
-            return View("Home");
-        }
+     //   public IActionResult Success()
+     //   {
+     //       return View("Welcome");
+      //     
+     //   }
 
-        public IActionResult Fail()
-        {
-            return View("Login");
-        }
+        
     }
 }
