@@ -15,12 +15,14 @@
             <th>
                 @Html.DisplayNameFor(model => model.Fullname)
             </th>
-            
             <th>
                 @Html.DisplayNameFor(model => model.Department)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.UsernameNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Afm)
             </th>
             <th></th>
         </tr>
@@ -37,6 +39,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.UsernameNavigation.Username)
             </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Afm)
+                </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Afm">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Afm">Details</a> |
