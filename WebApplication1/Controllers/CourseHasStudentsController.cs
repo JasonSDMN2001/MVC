@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Azure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models;
+using X.PagedList;
 
 namespace WebApplication1.Controllers
 {
@@ -19,10 +21,36 @@ namespace WebApplication1.Controllers
         }
 
         // GET: CourseHasStudents
-        public async Task<IActionResult> Index()
+        public IActionResult Index(int? page,string? search)
         {
-            var mVCDBContext = _context.CourseHasStudents.Include(c => c.IdCourseNavigation).Include(c => c.RegistrationNumberNavigation);
-            return View(await mVCDBContext.ToListAsync());
+           // var mVCDBContext = _context.CourseHasStudents.Include(c => c.IdCourseNavigation).Include(c => c.RegistrationNumberNavigation);
+           // return View(await mVCDBContext.ToListAsync());
+
+            ViewData["CurrentFilter"] = search;
+            var customers = from c in _context.CourseHasStudents
+                            select c;
+            var namecourse = from d in _context.CourseHasStudents select d;
+            var namestudent = from e in _context.CourseHasStudents select e;
+
+
+            if (!String.IsNullOrEmpty(search))
+            {
+                customers = customers.Where(c => c.RegistrationNumber.ToString() == search );
+                                       
+            }
+
+            customers = customers.OrderBy(c => c.RegistrationNumber).ThenBy(c => c.GradeCourseStudent);
+            // Pagination
+            if (page != null && page < 1)
+            {
+                page = 1;
+            }
+
+            int PageSize = 10;
+            var customersData = customers.ToPagedList(page ?? 1, PageSize);
+
+            return View(customersData);
+
         }
 
         // GET: CourseHasStudents/Details/5
