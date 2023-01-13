@@ -9,6 +9,11 @@ namespace WebApplication1.Models;
 [Table("course")]
 public partial class Course
 {
+    public Course()
+    {
+        CourseHasStudents = new HashSet<CourseHasStudent>();
+    }
+
     [Key]
     [Column("idCOURSE")]
     public int IdCourse { get; set; }

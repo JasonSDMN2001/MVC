@@ -177,6 +177,8 @@ namespace WebApplication1.Controllers
 
             var course = await _context.Courses
                 .Include(c => c.AfmNavigation)
+                .ThenInclude(c=>c.Courses)
+                .ThenInclude(c=>c.CourseHasStudents)
                 .FirstOrDefaultAsync(m => m.IdCourse == id);
             if (course == null)
             {
@@ -187,25 +189,26 @@ namespace WebApplication1.Controllers
         }
         public async Task<IActionResult> Professors()
         {
-            var mVCDBContext = _context.Professors;
+            var mVCDBContext = _context.Professors.Include(x=>x.Courses);
             return View(await mVCDBContext.ToListAsync());
         }
-        public async Task<IActionResult> Subjects2(int? afm)
+        public async Task<IActionResult> Subjects2(int? id)
         {
-            if (afm == null || _context.Courses == null)
+            if (id == null || _context.Professors == null)
             {
                 return NotFound();
             }
 
-            var course = await _context.Courses
-                .Include(c => c.IdCourse)
-                .FirstOrDefaultAsync(m => m.Afm == afm);
-            if (course == null)
+            var professor = await _context.Professors
+                .Include(x => x.Courses)
+                .ThenInclude(x=>x.CourseHasStudents)
+                .FirstOrDefaultAsync(m => m.Afm == id);
+            if (professor == null)
             {
                 return NotFound();
             }
 
-            return View(course);
+            return View(professor);
         }
     }
 }

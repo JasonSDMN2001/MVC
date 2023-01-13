@@ -5,16 +5,26 @@ using WebApplication1.Models.Metadata;
 namespace WebApplication1.Models
 {
     [ModelMetadataType(typeof(ProfessorMetadata))]
-        public partial class Professor
+    public partial class Professor
+    {
+        [Display(Name = "Full Name")]
+        public string Fullname
         {
-            [Display(Name = "Full Name")]
-            public string Fullname
+            get
             {
-                get
-                {
-                    return Name + "," + Surname;
-                }
+                return Name + "," + Surname;
             }
         }
-    
+    }
+    [ModelMetadataType(typeof(CourseMetadata))]
+    public partial class Course
+    {
+
+    }
+    [ModelMetadataType(typeof(CourseHasStudentsMetadata))]
+    public partial class CourseHasStudent
+    {
+
+    }
+
 }
