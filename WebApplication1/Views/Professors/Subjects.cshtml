@@ -1,0 +1,28 @@
+﻿@model IEnumerable<WebApplication1.Models.Course>
+
+@{
+    ViewData["Title"] = "Subjects";
+}
+<h1>Subjects</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CourseTitle)
+            </th>
+            </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.CourseTitle)
+    </td>
+    <td>
+        <a asp-action="Grades" asp-route-id="@item.IdCourse">Show Grades</a>
+                
+    </td>
+</tr>
+}
+    </tbody>
+</table>

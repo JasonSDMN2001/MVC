@@ -1,0 +1,33 @@
+﻿@model IEnumerable<WebApplication1.Models.Professor>
+@{
+    ViewData["Title"] = "Professors";
+}
+<h1>Subjects2</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Fullname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Department)
+            </th>
+            </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Fullname)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Department)
+    </td>
+    <td>
+        <a asp-action="Subjects2" asp-route-id="@item.Afm">Show Subjects</a>
+                
+    </td>
+</tr>
+}
+    </tbody>
+</table>

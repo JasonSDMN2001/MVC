@@ -163,5 +163,49 @@ namespace WebApplication1.Controllers
         {
           return _context.Professors.Any(e => e.Afm == id);
         }
+        public async Task<IActionResult> Subjects()
+        {
+            var mVCDBContext = _context.Courses.Include(c => c.AfmNavigation);
+            return View(await mVCDBContext.ToListAsync());
+        }
+        public async Task<IActionResult> Grades(int? id)
+        {
+            if (id == null || _context.Courses == null)
+            {
+                return NotFound();
+            }
+
+            var course = await _context.Courses
+                .Include(c => c.AfmNavigation)
+                .FirstOrDefaultAsync(m => m.IdCourse == id);
+            if (course == null)
+            {
+                return NotFound();
+            }
+
+            return View(course);
+        }
+        public async Task<IActionResult> Professors()
+        {
+            var mVCDBContext = _context.Professors;
+            return View(await mVCDBContext.ToListAsync());
+        }
+        public async Task<IActionResult> Subjects2(int? afm)
+        {
+            if (afm == null || _context.Courses == null)
+            {
+                return NotFound();
+            }
+
+            var course = await _context.Courses
+                .Include(c => c.IdCourse)
+                .FirstOrDefaultAsync(m => m.Afm == afm);
+            if (course == null)
+            {
+                return NotFound();
+            }
+
+            return View(course);
+        }
     }
 }
