@@ -39,13 +39,14 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+      @foreach (var item in Model)
+        {  
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.GradeCourseStudent)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdCourseNavigation.IdCourse)
+                @Html.DisplayFor(modelItem => item.IdCourseNavigation.CourseTitle)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.RegistrationNumber)
@@ -59,3 +60,20 @@
 }       
     </tbody>
 </table>
+<!-- output a paging control that lets the user navigation to the previous page, next page, etc -->
+<nav>
+    @Html.PagedListPager(Model, page => Url.Action("index", new { page = page, search=ViewData["CurrentFilter"] }), new PagedListRenderOptions()
+{
+    ActiveLiElementClass = "active",
+    PageClasses = new[]{ "page-link"},
+    LiElementClasses=new[] { "page-item" },
+    UlElementClasses = new[] { "pagination","justify-content-center", "mt-3" },
+    LinkToNextPageFormat = "Next",
+    LinkToPreviousPageFormat = "Previous",
+    MaximumPageNumbersToDisplay = 5,
+    DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+    DisplayLinkToNextPage = PagedListDisplayMode.Always,
+
+})
+</nav>
+

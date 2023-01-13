@@ -26,10 +26,9 @@ namespace WebApplication1.Controllers
             // var mVCDBContext = _context.CourseHasStudents.Include(c => c.IdCourseNavigation).Include(c => c.RegistrationNumberNavigation);
             // return View(await mVCDBContext.ToListAsync());
             ViewData["CurrentFilter"] = search;
-            var customers = from c in _context.CourseHasStudents
+            var customers = from c in _context.CourseHasStudents.Include(c => c.IdCourseNavigation).Include(c => c.RegistrationNumberNavigation)
                             select c;
-          //  var namecourse = from d in _context.CourseHasStudents select d;
-          //  var namestudent = from e in _context.CourseHasStudents select e;
+          
 
 
             if (!String.IsNullOrEmpty(search))
@@ -46,7 +45,7 @@ namespace WebApplication1.Controllers
             }
 
             int PageSize = 10;
-            var customersData = customers.ToPagedList(page ?? 1, PageSize);
+            var customersData = customers.ToPagedList(page ?? 1, PageSize) ;
 
             return View(customersData);
 
