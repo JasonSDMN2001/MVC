@@ -2,6 +2,7 @@
 @using X.PagedList.Web.Common;
 @model X.PagedList.IPagedList<WebApplication1.Models.CourseHasStudent>
 
+
 @{
     ViewData["Title"] = "Index";
 }
@@ -26,13 +27,13 @@
     <thead>
         <tr>
             <th>
-                GradeCourseStudent
+                Βαθμός
             </th>
             <th>
-                IdCourseNavigation
+                Κωδικός Μαθήματος
             </th>
             <th>
-                RegistrationNumberNavigation
+                Αριθμός Μητρώου
             </th>
             <th></th>
         </tr>
@@ -44,10 +45,10 @@
                 @Html.DisplayFor(modelItem => item.GradeCourseStudent)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdCourseNavigation.CourseTitle)
+                @Html.DisplayFor(modelItem => item.IdCourseNavigation.IdCourse)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.RegistrationNumberNavigation.Surname)
+                @Html.DisplayFor(modelItem => item.RegistrationNumber)
             </td>
             <td>
                     <a asp-action="Edit" asp-route-id="@item.Pk">Edit</a> |
@@ -55,23 +56,6 @@
                     <a asp-action="Delete" asp-route-id="@item.Pk">Delete</a>
             </td>
         </tr>
-}
+}       
     </tbody>
 </table>
-
-<!-- output a paging control that lets the user navigation to the previous page, next page, etc -->
-<nav>
-    @Html.PagedListPager(Model, page => Url.Action("index", new { page = page, search=ViewData["CurrentFilter"] }), new PagedListRenderOptions()
-    {
-    ActiveLiElementClass = "active",
-    PageClasses = new[]{ "page-link"},
-    LiElementClasses=new[] { "page-item" },
-    UlElementClasses = new[] { "pagination","justify-content-center", "mt-3" },
-    LinkToNextPageFormat = "Next",
-    LinkToPreviousPageFormat = "Previous",
-    MaximumPageNumbersToDisplay = 5,
-    DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
-    DisplayLinkToNextPage = PagedListDisplayMode.Always,
-
-    })
-</nav>

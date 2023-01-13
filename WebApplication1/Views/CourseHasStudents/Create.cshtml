@@ -13,15 +13,15 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="IdCourse" class="control-label"></label>
+                <label asp-for="IdCourse" class="control-label">Μάθημα</label>
                 <select asp-for="IdCourse" class ="form-control" asp-items="ViewBag.IdCourse"></select>
             </div>
             <div class="form-group">
-                <label asp-for="RegistrationNumber" class="control-label"></label>
+                <label asp-for="RegistrationNumber" class="control-label">Αριθμός Μητρώου</label>
                 <select asp-for="RegistrationNumber" class ="form-control" asp-items="ViewBag.RegistrationNumber"></select>
             </div>
             <div class="form-group">
-                <label asp-for="GradeCourseStudent" class="control-label"></label>
+                <label asp-for="GradeCourseStudent" class="control-label">Βαθμός</label>
                 <input asp-for="GradeCourseStudent" class="form-control" />
                 <span asp-validation-for="GradeCourseStudent" class="text-danger"></span>
             </div>

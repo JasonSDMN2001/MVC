@@ -23,14 +23,13 @@ namespace WebApplication1.Controllers
         // GET: CourseHasStudents
         public IActionResult Index(int? page,string? search)
         {
-           // var mVCDBContext = _context.CourseHasStudents.Include(c => c.IdCourseNavigation).Include(c => c.RegistrationNumberNavigation);
-           // return View(await mVCDBContext.ToListAsync());
-
+            // var mVCDBContext = _context.CourseHasStudents.Include(c => c.IdCourseNavigation).Include(c => c.RegistrationNumberNavigation);
+            // return View(await mVCDBContext.ToListAsync());
             ViewData["CurrentFilter"] = search;
             var customers = from c in _context.CourseHasStudents
                             select c;
-            var namecourse = from d in _context.CourseHasStudents select d;
-            var namestudent = from e in _context.CourseHasStudents select e;
+          //  var namecourse = from d in _context.CourseHasStudents select d;
+          //  var namestudent = from e in _context.CourseHasStudents select e;
 
 
             if (!String.IsNullOrEmpty(search))
@@ -76,7 +75,7 @@ namespace WebApplication1.Controllers
         // GET: CourseHasStudents/Create
         public IActionResult Create()
         {
-            ViewData["IdCourse"] = new SelectList(_context.Courses, "IdCourse", "IdCourse");
+            ViewData["IdCourse"] = new SelectList(_context.Courses, "IdCourse", "CourseTitle");
             ViewData["RegistrationNumber"] = new SelectList(_context.Students, "RegistrationNumber", "RegistrationNumber");
             return View();
         }
@@ -94,7 +93,7 @@ namespace WebApplication1.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdCourse"] = new SelectList(_context.Courses, "IdCourse", "IdCourse", courseHasStudent.IdCourse);
+            ViewData["IdCourse"] = new SelectList(_context.Courses, "IdCourse", "CourseTitle", courseHasStudent.IdCourse);
             ViewData["RegistrationNumber"] = new SelectList(_context.Students, "RegistrationNumber", "RegistrationNumber", courseHasStudent.RegistrationNumber);
             return View(courseHasStudent);
         }
@@ -112,7 +111,7 @@ namespace WebApplication1.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdCourse"] = new SelectList(_context.Courses, "IdCourse", "IdCourse", courseHasStudent.IdCourse);
+            ViewData["IdCourse"] = new SelectList(_context.Courses, "IdCourse", "CourseTitle", courseHasStudent.IdCourse);
             ViewData["RegistrationNumber"] = new SelectList(_context.Students, "RegistrationNumber", "RegistrationNumber", courseHasStudent.RegistrationNumber);
             return View(courseHasStudent);
         }
@@ -149,7 +148,7 @@ namespace WebApplication1.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdCourse"] = new SelectList(_context.Courses, "IdCourse", "IdCourse", courseHasStudent.IdCourse);
+            ViewData["IdCourse"] = new SelectList(_context.Courses, "IdCourse", "CourseTitle", courseHasStudent.IdCourse);
             ViewData["RegistrationNumber"] = new SelectList(_context.Students, "RegistrationNumber", "RegistrationNumber", courseHasStudent.RegistrationNumber);
             return View(courseHasStudent);
         }

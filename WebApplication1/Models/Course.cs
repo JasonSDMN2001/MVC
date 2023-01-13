@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using static NuGet.Packaging.PackagingConstants;
 
 namespace WebApplication1.Models;
 
 [Table("course")]
 public partial class Course
 {
+    public Course()
+    {
+       CourseHasStudents  = new HashSet<CourseHasStudent>();
+    }
+
     [Key]
     [Column("idCOURSE")]
     public int IdCourse { get; set; }
