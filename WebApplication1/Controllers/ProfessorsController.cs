@@ -163,11 +163,7 @@ namespace WebApplication1.Controllers
         {
           return _context.Professors.Any(e => e.Afm == id);
         }
-        public async Task<IActionResult> Subjects()
-        {
-            var mVCDBContext = _context.Courses.Include(c => c.AfmNavigation);
-            return View(await mVCDBContext.ToListAsync());
-        }
+        
         public async Task<IActionResult> Grades(int? id)
         {
             if (id == null || _context.Courses == null)
@@ -179,7 +175,28 @@ namespace WebApplication1.Controllers
                 .Include(c => c.AfmNavigation)
                 .ThenInclude(c=>c.Courses)
                 .ThenInclude(c=>c.CourseHasStudents)
-                .FirstOrDefaultAsync(m => m.IdCourse == id);
+                .FirstOrDefaultAsync(m => m.IdCourse == id)
+                ;
+            if (course == null)
+            {
+                return NotFound();
+            }
+
+            return View(course);
+        }
+        public async Task<IActionResult> ToGrade(int? id)
+        {
+            if (id == null || _context.Courses == null)
+            {
+                return NotFound();
+            }
+
+            var course = await _context.Courses
+                .Include(c => c.AfmNavigation)
+                .ThenInclude(c => c.Courses)
+                .ThenInclude(c => c.CourseHasStudents)
+                .FirstOrDefaultAsync(m => m.IdCourse == id)
+                ;
             if (course == null)
             {
                 return NotFound();
@@ -190,6 +207,11 @@ namespace WebApplication1.Controllers
         public async Task<IActionResult> Professors()
         {
             var mVCDBContext = _context.Professors.Include(x=>x.Courses);
+            return View(await mVCDBContext.ToListAsync());
+        }
+        public async Task<IActionResult> Professors2()
+        {
+            var mVCDBContext = _context.Professors.Include(x => x.Courses);
             return View(await mVCDBContext.ToListAsync());
         }
         public async Task<IActionResult> Subjects2(int? id)
@@ -209,6 +231,77 @@ namespace WebApplication1.Controllers
             }
 
             return View(professor);
+        }
+        public async Task<IActionResult> Subjects(int? id)
+        {
+            if (id == null || _context.Professors == null)
+            {
+                return NotFound();
+            }
+
+            var professor = await _context.Professors
+                .Include(x => x.Courses)
+                .ThenInclude(x => x.CourseHasStudents)
+                .FirstOrDefaultAsync(m => m.Afm == id);
+            if (professor == null)
+            {
+                return NotFound();
+            }
+
+            return View(professor);
+        }
+        public async Task<IActionResult> Grading(int? id)
+        {
+            if (id == null || _context.CourseHasStudents == null)
+            {
+                return NotFound();
+            }
+
+            var courseHasStudent = await _context.CourseHasStudents.FindAsync(id);
+            if (courseHasStudent == null)
+            {
+                return NotFound();
+            }
+            ViewData["IdCourse"] = new SelectList(_context.Courses, "IdCourse", "IdCourse", courseHasStudent.IdCourse);
+            ViewData["RegistrationNumber"] = new SelectList(_context.Students, "RegistrationNumber", "RegistrationNumber", courseHasStudent.RegistrationNumber);
+            return View(courseHasStudent);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Grading(int id, [Bind("IdCourse,RegistrationNumber,GradeCourseStudent,Pk")] CourseHasStudent courseHasStudent)
+        {
+            if (id != courseHasStudent.Pk)
+            {
+                return NotFound();
+            }
+
+            if (_context.CourseHasStudents != null)
+            {
+                try
+                {
+                    _context.Update(courseHasStudent);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!CourseHasStudentExists(courseHasStudent.Pk))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["IdCourse"] = new SelectList(_context.Courses, "IdCourse", "IdCourse", courseHasStudent.IdCourse);
+            ViewData["RegistrationNumber"] = new SelectList(_context.Students, "RegistrationNumber", "RegistrationNumber", courseHasStudent.RegistrationNumber);
+            return View(courseHasStudent);
+        }
+        private bool CourseHasStudentExists(int id)
+        {
+            return _context.CourseHasStudents.Any(e => e.Pk == id);
         }
     }
 }

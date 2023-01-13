@@ -1,5 +1,4 @@
-﻿@model IEnumerable<WebApplication1.Models.Course>
-
+﻿@model WebApplication1.Models.Professor
 @{
     ViewData["Title"] = "Subjects";
 }
@@ -8,21 +7,22 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CourseTitle)
+                CourseTitle
             </th>
-            </tr>
+        </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.CourseTitle)
-    </td>
-    <td>
-        <a asp-action="Grades" asp-route-id="@item.IdCourse">Show Grades</a>
-                
-    </td>
-</tr>
-}
+        @foreach (var item in Model.Courses)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CourseTitle)
+                </td>
+                <td>
+                    <a asp-action="ToGrade" asp-route-id="@item.IdCourse">Show Grades</a>
+
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

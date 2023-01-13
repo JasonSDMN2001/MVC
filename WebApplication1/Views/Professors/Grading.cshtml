@@ -1,12 +1,12 @@
 ﻿@model WebApplication1.Models.CourseHasStudent
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Grading";
 }
 
-<h1>Edit</h1>
+<h1>Add Grade</h1>
 
-<h4>CourseHasStudent</h4>
+
 <hr />
 <dt class="col-sm-2">
     @Html.DisplayNameFor(model => model.RegistrationNumberNavigation)
@@ -16,8 +16,9 @@
 </dd>
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Grading">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        
             <div class="form-group">
                 <label asp-for="IdCourse" class="control-label"></label>
                 <select asp-for="IdCourse" class="form-control" asp-items="ViewBag.IdCourse"></select>
@@ -28,23 +29,25 @@
                 <select asp-for="RegistrationNumber" class="form-control" asp-items="ViewBag.RegistrationNumber"></select>
                 <span asp-validation-for="RegistrationNumber" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="GradeCourseStudent" class="control-label"></label>
-                <input asp-for="GradeCourseStudent" class="form-control" />
-                <span asp-validation-for="GradeCourseStudent" class="text-danger"></span>
-            </div>
-            <input type="hidden" asp-for="Pk" />
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
+                <div class="form-group">
+                    <label asp-for="GradeCourseStudent" class="control-label"></label>
+                    <input asp-for="GradeCourseStudent" class="form-control" />
+                    <span asp-validation-for="GradeCourseStudent" class="text-danger"></span>
+                </div>
+                <input type="hidden" asp-for="Pk" />
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="ToGrade">Back to Your Grades</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

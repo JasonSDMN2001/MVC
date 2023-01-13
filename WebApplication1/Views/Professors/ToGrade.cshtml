@@ -1,6 +1,6 @@
 ﻿@model WebApplication1.Models.Course
 @{
-    ViewData["Title"] = "Grades";
+    ViewData["Title"] = "ToGrade";
 }
 <h1>@Html.DisplayNameFor(model => model.CourseTitle) @Html.DisplayFor(model => model.CourseTitle)</h1>
 <table class="table">
@@ -17,16 +17,20 @@
     <tbody>
         @foreach (var item in Model.CourseHasStudents)
         {
-            @if (item.GradeCourseStudent > 0)
+            @if (item.GradeCourseStudent == 0)
             {
                 <tr>
                     <td>
-                    @Html.DisplayFor(modelItem => item.RegistrationNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.GradeCourseStudent)
-                </td>
-            </tr>
+                        @Html.DisplayFor(modelItem => item.RegistrationNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GradeCourseStudent)
+                    </td>
+                    <td>
+                        <a asp-action="Grading" asp-route-id="@item.Pk">Add Grade</a>
+
+                    </td>
+                </tr>
             }
         }
     </tbody>
