@@ -6,6 +6,7 @@ using Azure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol;
 using WebApplication1.Models;
 using X.PagedList;
 
@@ -46,6 +47,41 @@ namespace WebApplication1.Controllers
 
             int PageSize = 10;
             var customersData = customers.ToPagedList(page ?? 1, PageSize) ;
+
+            return View(customersData);
+
+        }
+
+        public IActionResult Index2(int? page, string? search, string? search2)
+        {
+            // var mVCDBContext = _context.CourseHasStudents.Include(c => c.IdCourseNavigation).Include(c => c.RegistrationNumberNavigation);
+            // return View(await mVCDBContext.ToListAsync());
+            
+            ViewData["CurrentFilter1"] = search;
+            ViewData["CurrentFilter2"] = search2;
+            
+            var customers = from c in _context.CourseHasStudents.Include(c => c.IdCourseNavigation).Include(c => c.RegistrationNumberNavigation)
+                            select c;
+
+            
+
+            if (!String.IsNullOrEmpty(search) && !String.IsNullOrEmpty(search2))
+            {
+                ViewBag.Check = "true";
+                customers = customers.Where(c => c.RegistrationNumber.ToString() == search && c.IdCourseNavigation.CourseSemaster == search2);
+               // customers = customers.Where(c => c.IdCourseNavigation.CourseSemaster.ToString() == search2);
+
+            }
+
+            customers = customers.OrderBy(c => c.RegistrationNumber).ThenBy(c => c.GradeCourseStudent);
+            // Pagination
+            if (page != null && page < 1)
+            {
+                page = 1;
+            }
+
+            int PageSize = 10;
+            var customersData = customers.ToPagedList(page ?? 1, PageSize);
 
             return View(customersData);
 
