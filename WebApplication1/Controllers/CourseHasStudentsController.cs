@@ -200,7 +200,7 @@ namespace WebApplication1.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (_context.CourseHasStudents != null)
             {
                 try
                 {
