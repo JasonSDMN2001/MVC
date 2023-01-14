@@ -1,0 +1,43 @@
+﻿@model IEnumerable<WebApplication1.Models.Course>
+@{
+    ViewData["Title"] = "Index2";
+}
+
+<h1>Προβολή Μαθημάτων</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Μάθημα
+            </th>
+            <th>
+                Εξάμηνο
+            </th>
+            <th>
+                Υπεύθυνος Καθηγητής
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CourseTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CourseSemaster)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AfmNavigation.Fullname)
+                </td>
+                <td>
+                    <a asp-action="Anathesi" asp-route-id="@item.IdCourse">Ανάθεση Μαθήματος</a>                    
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -21,7 +21,19 @@ namespace WebApplication1.Controllers
         // GET: Courses
         public async Task<IActionResult> Index()
         {
-            var mVCDBContext = _context.Courses.Include(c => c.AfmNavigation);
+            var mVCDBContext = _context.Courses.Include(c => c.AfmNavigation).OrderBy(c => c.CourseSemaster);
+            return View(await mVCDBContext.ToListAsync());
+        }
+
+        public async Task<IActionResult> Index2()
+        {
+            var mVCDBContext = _context.Courses.Include(c => c.AfmNavigation).OrderBy(c => c.CourseSemaster);
+            return View(await mVCDBContext.ToListAsync());
+        }
+
+        public async Task<IActionResult> Index3()
+        {
+            var mVCDBContext = _context.Courses.Include(c => c.AfmNavigation).OrderBy(c => c.CourseSemaster);
             return View(await mVCDBContext.ToListAsync());
         }
 
@@ -63,6 +75,23 @@ namespace WebApplication1.Controllers
                 _context.Add(course);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
+            }
+            ViewData["Afm"] = new SelectList(_context.Professors, "Afm", "Afm", course.Afm);
+            return View(course);
+        }
+
+        public async Task<IActionResult> Anathesi(int? id)
+        {
+            // var mVCDBContext = _context.Courses.Include(c => c.AfmNavigation);
+            // return View(await mVCDBContext.ToListAsync());
+            if (id == null || _context.Courses == null)
+            {
+                return NotFound();
+            }
+            var course = await _context.Courses.FindAsync(id);
+            if (course == null)
+            {
+                return NotFound();
             }
             ViewData["Afm"] = new SelectList(_context.Professors, "Afm", "Afm", course.Afm);
             return View(course);
