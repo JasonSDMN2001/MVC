@@ -1,0 +1,27 @@
+﻿@model WebApplication1.Models.Professor
+@{
+    ViewData["Title"] = "Subjects2";
+}
+<h1>Subjects</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                CourseTitle
+            </th>
+            </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Courses) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.CourseTitle)
+    </td>
+    <td>
+        <a asp-action="Grades" asp-route-id="@item.IdCourse">Show Grades</a>
+                
+    </td>
+</tr>
+}
+    </tbody>
+</table>

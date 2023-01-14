@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
-using static NuGet.Packaging.PackagingConstants;
 
 namespace WebApplication1.Models;
 
@@ -12,7 +11,7 @@ public partial class Course
 {
     public Course()
     {
-       CourseHasStudents  = new HashSet<CourseHasStudent>();
+        CourseHasStudents = new HashSet<CourseHasStudent>();
     }
 
     [Key]

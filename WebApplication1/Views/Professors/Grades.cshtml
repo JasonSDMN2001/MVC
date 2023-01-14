@@ -1,0 +1,33 @@
+﻿@model WebApplication1.Models.Course
+@{
+    ViewData["Title"] = "Grades";
+}
+<h1>@Html.DisplayNameFor(model => model.CourseTitle) @Html.DisplayFor(model => model.CourseTitle)</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                AM
+            </th>
+            <th>
+                Grade
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.CourseHasStudents)
+        {
+            @if (item.GradeCourseStudent > 0)
+            {
+                <tr>
+                    <td>
+                    @Html.DisplayFor(modelItem => item.RegistrationNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GradeCourseStudent)
+                </td>
+            </tr>
+            }
+        }
+    </tbody>
+</table>
