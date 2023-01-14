@@ -87,6 +87,43 @@ namespace WebApplication1.Controllers
 
         }
 
+        public IActionResult Index3(int? page, string? search)
+        {
+            // var mVCDBContext = _context.CourseHasStudents.Include(c => c.IdCourseNavigation).Include(c => c.RegistrationNumberNavigation);
+            // return View(await mVCDBContext.ToListAsync());
+            ViewData["CurrentFilter"] = search;
+            var customers = from c in _context.CourseHasStudents.Include(c => c.IdCourseNavigation).Include(c => c.RegistrationNumberNavigation)
+                            select c;
+          
+           // ViewBag.Fullname = _context.Students.Where((i => i.RegistrationNumber.ToString() == search));
+            ViewBag.TotalAmount = _context.CourseHasStudents.Where(i => i.GradeCourseStudent >= 5 && i.RegistrationNumber.ToString() == search).Count();
+            ViewBag.Total = _context.CourseHasStudents.Where(i => i.GradeCourseStudent >= 5 && i.RegistrationNumber.ToString() == search).Sum(x => x.GradeCourseStudent);
+            if(ViewBag.TotalAmount != 0)
+            {
+                ViewBag.Average = ViewBag.Total / ViewBag.TotalAmount;
+            }
+           
+
+            if (!String.IsNullOrEmpty(search))
+            {
+                ViewBag.Check2 = "true";
+                customers = customers.Where(c => c.RegistrationNumber.ToString() == search);
+            }
+
+            customers = customers.OrderBy(c => c.RegistrationNumber).ThenBy(c => c.GradeCourseStudent);
+            // Pagination
+            if (page != null && page < 1)
+            {
+                page = 1;
+            }
+
+            int PageSize = 5;
+            var customersData = customers.ToPagedList(page ?? 1, PageSize);
+
+            return View(customersData);
+
+        }
+
         // GET: CourseHasStudents/Details/5
         public async Task<IActionResult> Details(int? id)
         {

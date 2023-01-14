@@ -1,0 +1,103 @@
+﻿@using X.PagedList.Mvc.Core;
+@using X.PagedList.Web.Common;
+@model X.PagedList.IPagedList<WebApplication1.Models.CourseHasStudent>
+
+@{
+    ViewData["Title"] = "Index3";
+    //int dec = 0;
+    //double sum = 0;
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-action="Index3" method="get">
+    <div class="form-actions">
+        <p>
+            Find by name: <input type="text" name="search" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="search" class="btn btn-primary" /> |
+            <a asp-action="Index3">Back to Main Page</a>
+        </p>
+    </div>
+</form>
+
+@if (ViewBag.Check2 != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Βαθμός
+                </th>
+                <th>
+                    Όνομα Μαθήματος
+                </th>
+                <th>
+                    Αριθμός Μητρώου
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GradeCourseStudent)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdCourseNavigation.CourseTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RegistrationNumber)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Pk">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Pk">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Pk">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <!-- output a paging control that lets the user navigation to the previous page, next page, etc -->
+    <nav>
+        @Html.PagedListPager(Model, page => Url.Action("index", new { page = page, search=ViewData["CurrentFilter"] }), new PagedListRenderOptions()
+    {
+    ActiveLiElementClass = "active",
+    PageClasses = new[]{ "page-link"},
+    LiElementClasses=new[] { "page-item" },
+    UlElementClasses = new[] { "pagination","justify-content-center", "mt-3" },
+    LinkToNextPageFormat = "Next",
+    LinkToPreviousPageFormat = "Previous",
+    MaximumPageNumbersToDisplay = 5,
+    DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+    DisplayLinkToNextPage = PagedListDisplayMode.Always,
+
+    })
+    </nav>
+
+    <table class="table">
+        <tr>
+            <th>
+                Μέσος Όρος Βαθμολογίας
+            </th>
+            <th>
+                Περασμένα μαθήματα
+            </th>
+        </tr>
+        <tr>
+            <td>
+                @ViewBag.Average
+            </td>
+            <td>
+                @ViewBag.TotalAmount
+            </td>
+        </tr>
+
+    </table>
+
+}
