@@ -96,6 +96,41 @@ namespace WebApplication1.Controllers
             ViewData["Afm"] = new SelectList(_context.Professors, "Afm", "Afm", course.Afm);
             return View(course);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public async Task<IActionResult> Anathesi(int id, [Bind("IdCourse,CourseTitle,CourseSemaster,AFM")] Course course)
+        {
+            if (id != course.IdCourse)
+            {
+                return NotFound();
+            }
+
+            if (_context.Courses != null)
+            {
+                try
+                {
+                    _context.Update(course);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!CourseExists(course.IdCourse))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index2));
+            }
+
+            ViewData["Afm"] = new SelectList(_context.Professors, "Afm", "Afm", course.Afm);
+            return View(course);
+
+        }
 
         // GET: Courses/Edit/5
         public async Task<IActionResult> Edit(int? id)
