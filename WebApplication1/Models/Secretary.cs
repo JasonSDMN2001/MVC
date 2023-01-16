@@ -9,6 +9,7 @@ namespace WebApplication1.Models;
 [Table("secretaries")]
 public partial class Secretary
 {
+    
     [Key]
     public long Phonenumber { get; set; }
 
