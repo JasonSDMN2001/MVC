@@ -303,5 +303,9 @@ namespace WebApplication1.Controllers
         {
             return _context.CourseHasStudents.Any(e => e.Pk == id);
         }
+        //public Professor()
+        //{
+        //    Courses = new HashSet<Course>();
+        //}
     }
 }

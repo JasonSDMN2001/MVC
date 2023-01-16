@@ -163,5 +163,75 @@ namespace WebApplication1.Controllers
         {
           return _context.Secretaries.Any(e => e.Phonenumber == id);
         }
+        public IActionResult Insert()
+        {
+            return View();
+        }
+        public IActionResult CreateCourse()
+        {
+            ViewData["Afm"] = new SelectList(_context.Professors, "Afm", "Afm");
+            return View();
+        }
+
+        // POST: Courses/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateCourse([Bind("IdCourse,CourseTitle,CourseSemaster,Afm")] Course course)
+        {
+            if (_context.Courses != null)
+            {
+                _context.Add(course);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["Afm"] = new SelectList(_context.Professors, "Afm", "Afm", course.Afm);
+            return View(course);
+        }
+        public IActionResult CreateProfessor()
+        {
+            ViewData["Username"] = new SelectList(_context.Users, "Username", "Username");
+            return View();
+        }
+
+        // POST: Professors/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateProfessor([Bind("Afm,Name,Surname,Department,Username")] Professor professor)
+        {
+            if (_context.Professors != null)
+            {
+                _context.Add(professor);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["Username"] = new SelectList(_context.Users, "Username", "Username", professor.Username);
+            return View(professor);
+        }
+        public IActionResult CreateStudent()
+        {
+            ViewData["Username"] = new SelectList(_context.Users, "Username", "Username");
+            return View();
+        }
+
+        // POST: Students/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateStudent([Bind("RegistrationNumber,Name,Surname,Department,Username")] Student student)
+        {
+            if (_context.Students != null)
+            {
+                _context.Add(student);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["Username"] = new SelectList(_context.Users, "Username", "Username", student.Username);
+            return View(student);
+        }
     }
 }

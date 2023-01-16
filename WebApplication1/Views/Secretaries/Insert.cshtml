@@ -1,0 +1,118 @@
+﻿@using WebApplication1.Models
+@model Tuple<Course,Professor,Student>
+@{
+    ViewData["Title"] = "Insert";
+}
+
+<h1>Create</h1>
+
+<h4>Course</h4>
+<hr /> 
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateCourse">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="@Model.Item1.IdCourse" class="control-label"></label>
+                <input asp-for="@Model.Item1.IdCourse" class="form-control" />
+                <span asp-validation-for="@Model.Item1.IdCourse" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Item1.CourseTitle" class="control-label"></label>
+                <input asp-for="@Model.Item1.CourseTitle" class="form-control" />
+                <span asp-validation-for="@Model.Item1.CourseTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Item1.CourseSemaster" class="control-label"></label>
+                <input asp-for="@Model.Item1.CourseSemaster" class="form-control" />
+                <span asp-validation-for="@Model.Item1.CourseSemaster" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Item1.Afm" class="control-label"></label>
+                <input asp-for="@Model.Item1.Afm" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<h4>Professor</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateProfessor">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="@Model.Item2.Afm" class="control-label"></label>
+                <input asp-for="@Model.Item2.Afm" class="form-control" />
+                <span asp-validation-for="@Model.Item2.Afm" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Item2.Name" class="control-label"></label>
+                <input asp-for="@Model.Item2.Name" class="form-control" />
+                <span asp-validation-for="@Model.Item2.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Item2.Surname" class="control-label"></label>
+                <input asp-for="@Model.Item2.Surname" class="form-control" />
+                <span asp-validation-for="@Model.Item2.Surname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Item2.Department" class="control-label"></label>
+                <input asp-for="@Model.Item2.Department" class="form-control" />
+                <span asp-validation-for="@Model.Item2.Department" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Item2.Username" class="control-label"></label>
+                <select asp-for="@Model.Item2.Username" class ="form-control" asp-items="ViewBag.Username"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<h4>Student</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateStudent">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="@Model.Item3.RegistrationNumber" class="control-label"></label>
+                <input asp-for="@Model.Item3.RegistrationNumber" class="form-control" />
+                <span asp-validation-for="@Model.Item3.RegistrationNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Item3.Name" class="control-label"></label>
+                <input asp-for="@Model.Item3.Name" class="form-control" />
+                <span asp-validation-for="@Model.Item3.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Item3.Surname" class="control-label"></label>
+                <input asp-for="@Model.Item3.Surname" class="form-control" />
+                <span asp-validation-for="@Model.Item3.Surname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Item3.Department" class="control-label"></label>
+                <input asp-for="@Model.Item3.Department" class="form-control" />
+                <span asp-validation-for="@Model.Item3.Department" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Item3.Username" class="control-label"></label>
+                <select asp-for="@Model.Item3.Username" class ="form-control" asp-items="ViewBag.Username"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
