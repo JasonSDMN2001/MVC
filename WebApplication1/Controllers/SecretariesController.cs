@@ -165,6 +165,9 @@ namespace WebApplication1.Controllers
         }
         public IActionResult Insert()
         {
+            ViewData["Afm"] = new SelectList(_context.Professors, "Afm", "Afm");
+            ViewData["Username"] = new SelectList(_context.Users, "Username", "Username");
+
             return View();
         }
         public IActionResult CreateCourse()
