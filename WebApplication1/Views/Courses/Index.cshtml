@@ -4,22 +4,20 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Προβολή Μαθημάτων</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CourseTitle)
+                 Μάθημα
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CourseSemaster)
+                Εξάμηνο
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AfmNavigation)
+                Υπεύθυνος Καθηγητής
             </th>
             <th></th>
         </tr>
@@ -34,7 +32,7 @@
                 @Html.DisplayFor(modelItem => item.CourseSemaster)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AfmNavigation.Afm)
+                @Html.DisplayFor(modelItem => item.AfmNavigation.Fullname)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.IdCourse">Edit</a> |

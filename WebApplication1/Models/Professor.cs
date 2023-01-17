@@ -11,10 +11,11 @@ public partial class Professor
 {
     public Professor()
     {
-        Courses = new HashSet<Course>();}
+        Courses = new HashSet<Course>();
+    }
    
     [Key]
-    [Column("AFM")]
+    [Column("Afm")]
     public int Afm { get; set; }
 
     [StringLength(50)]

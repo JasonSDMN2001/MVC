@@ -1,16 +1,16 @@
 ﻿@model WebApplication1.Models.Course
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Anathesi";
 }
 
-<h1>Edit</h1>
+<h1>Ανάθεση Μαθήματος</h1>
 
-<h4>Course</h4>
+<h4>Μάθημα</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Anathesi">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IdCourse" />
             <div class="form-group">
@@ -36,9 +36,12 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index2">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
+
