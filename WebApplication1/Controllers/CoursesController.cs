@@ -70,7 +70,7 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdCourse,CourseTitle,CourseSemaster,Afm")] Course course)
         {
-            if (ModelState.IsValid)
+            if (_context.Courses != null)
             {
                 _context.Add(course);
                 await _context.SaveChangesAsync();
@@ -93,13 +93,13 @@ namespace WebApplication1.Controllers
             {
                 return NotFound();
             }
-            ViewData["Afm"] = new SelectList(_context.Professors, "Afm", "Afm", course.Afm);
+            ViewData["Afm"] = new SelectList(_context.Professors, "Afm", "Afm", course.AfmNavigation);
             return View(course);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public async Task<IActionResult> Anathesi(int id, [Bind("IdCourse,CourseTitle,CourseSemaster,AFM")] Course course)
+        public async Task<IActionResult> Anathesi(int id, [Bind("IdCourse,CourseTitle,CourseSemaster,Afm")] Course course)
         {
             if (id != course.IdCourse)
             {
@@ -127,7 +127,7 @@ namespace WebApplication1.Controllers
                 return RedirectToAction(nameof(Index2));
             }
 
-            ViewData["Afm"] = new SelectList(_context.Professors, "Afm", "Afm", course.Afm);
+            ViewData["Afm"] = new SelectList(_context.Professors, "Afm", "Afm", course.AfmNavigation);
             return View(course);
 
         }
@@ -161,7 +161,7 @@ namespace WebApplication1.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (_context.Courses != null)
             {
                 try
                 {

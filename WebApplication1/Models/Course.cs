@@ -13,6 +13,7 @@ public partial class Course
     public Course()
     {
         CourseHasStudents = new HashSet<CourseHasStudent>();
+       // AfmProfessors = new HashSet<Professor>();
     }
 
     [Key]

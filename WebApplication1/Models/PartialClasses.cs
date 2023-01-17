@@ -19,7 +19,7 @@ namespace WebApplication1.Models
     [ModelMetadataType(typeof(CourseMetadata))]
     public partial class Course
     {
-
+       // public virtual ICollection<Professor> AfmProfessors { get; } = new List<Professor>();
     }
     [ModelMetadataType(typeof(CourseHasStudentsMetadata))]
     public partial class CourseHasStudent
