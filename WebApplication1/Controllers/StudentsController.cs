@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.Pkcs;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,6 +13,7 @@ namespace WebApplication1.Controllers
     public class StudentsController : Controller
     {
         private readonly MVCDBContext _context;
+        private static int i = 63;
 
         public StudentsController(MVCDBContext context)
         {
@@ -23,6 +25,107 @@ namespace WebApplication1.Controllers
         {
             var mVCDBContext = _context.Students.Include(s => s.UsernameNavigation);
             return View(await mVCDBContext.ToListAsync());
+        }
+
+        public async Task<IActionResult> Index2()
+        {
+            var mVCDBContext = _context.Students.Include(s => s.UsernameNavigation).Include(x => x.CourseHasStudents);
+            return View(await mVCDBContext.ToListAsync());
+        }
+
+        public async Task<IActionResult> Registeredlessons(int? id)
+        {
+            if (id == null || _context.Students == null)
+            {
+                return NotFound();
+            }
+
+            var students = await _context.Students
+                .Include(x => x.CourseHasStudents)
+                .FirstOrDefaultAsync(m => m.RegistrationNumber == id);
+            if (students == null)
+            {
+                return NotFound();
+            }
+
+            return View(students);
+        }
+        public async Task<IActionResult> Register(int? id)
+        {
+              if (id == null || _context.Students == null)
+              {
+                  return NotFound();
+              } 
+              var courseHasStudent1 = await _context.Students.FindAsync(id);
+              if (courseHasStudent1 == null)
+              {
+                  return NotFound();
+              } 
+           
+            ViewData["IdCourse"] = new SelectList(_context.Courses, "IdCourse", "CourseTitle");
+            ViewData["RegistrationNumber"] = new SelectList(_context.Students, "RegistrationNumber", "RegistrationNumber", courseHasStudent1.RegistrationNumber);
+            return View();
+           
+           
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(int id,[Bind("IdCourse,RegistrationNumber,GradeCourseStudent,Pk")] CourseHasStudent courseHasStudent)
+        {
+           /*  if (ModelState.IsValid)
+             {
+                 _context.Add(courseHasStudent);
+                 await _context.SaveChangesAsync();
+                 return RedirectToAction(nameof(Registeredlessons));
+             } */
+            // ViewData["IdCourse"] = new SelectList(_context.Courses, "IdCourse", "CourseTitle", courseHasStudent.IdCourse);
+            //  ViewData["RegistrationNumber"] = new SelectList(_context.Students, "RegistrationNumber", "RegistrationNumber", courseHasStudent.RegistrationNumber);
+            
+            
+            if (id != courseHasStudent.RegistrationNumber)
+            {
+                return NotFound();
+            }
+
+            if (_context.CourseHasStudents != null)
+            {
+                try
+                {
+                    while (CourseHasStudentExists2(courseHasStudent.Pk))
+                    {
+                        courseHasStudent.Pk = courseHasStudent.Pk + 1;
+                    }
+                   // i = i + 1;
+                   // courseHasStudent.Pk = i;
+                   // courseHasStudent.Pk = courseHasStudent.Pk + 1;
+                    _context.Add(courseHasStudent);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!CourseHasStudentExists(courseHasStudent.RegistrationNumber))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index2));
+            } 
+
+            ViewData["IdCourse"] = new SelectList(_context.Courses, "IdCourse", "CourseTitle",courseHasStudent.IdCourse);
+            ViewData["RegistrationNumber"] = new SelectList(_context.Students, "RegistrationNumber", "RegistrationNumber", courseHasStudent.RegistrationNumber);
+            return View(courseHasStudent);
+        }
+        private bool CourseHasStudentExists(int id)
+        {
+            return _context.CourseHasStudents.Any(e => e.RegistrationNumber == id);
+        }
+        private bool CourseHasStudentExists2(int k)
+        {
+            return _context.CourseHasStudents.Any(e => e.Pk == k);
         }
 
         // GET: Students/Details/5

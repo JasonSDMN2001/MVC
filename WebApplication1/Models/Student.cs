@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using WebApplication1.Controllers;
 
 namespace WebApplication1.Models;
 
 [Table("students")]
 public partial class Student
 {
+    public Student() {
+
+        CourseHasStudents = new HashSet<CourseHasStudent>();
+    }
     [Key]
     public int RegistrationNumber { get; set; }
 

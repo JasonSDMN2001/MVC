@@ -3,15 +3,15 @@
 @model X.PagedList.IPagedList<WebApplication1.Models.CourseHasStudent>
 
 @{
-    ViewData["Title"] = "Index3";
+    ViewData["Title"] = "Προβολή Συνολικής Βαθμολογίας";
     //int dec = 0;
     //double sum = 0;
 }
 
-<h1>Index</h1>
+<h1>Προβολή Συνολικής Βαθμολογίας</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    
 </p>
 
 <form asp-action="Index3" method="get">
@@ -30,13 +30,13 @@
         <thead>
             <tr>
                 <th>
-                    Βαθμός
+                    Αριθμός Μητρώου
                 </th>
                 <th>
                     Όνομα Μαθήματος
                 </th>
                 <th>
-                    Αριθμός Μητρώου
+                    Βαθμός
                 </th>
                 <th></th>
             </tr>
@@ -46,13 +46,13 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.GradeCourseStudent)
+                        @Html.DisplayFor(modelItem => item.RegistrationNumber)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.IdCourseNavigation.CourseTitle)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.RegistrationNumber)
+                        @Html.DisplayFor(modelItem => item.GradeCourseStudent)
                     </td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.Pk">Edit</a> |

@@ -2,12 +2,13 @@
 @using X.PagedList.Web.Common;
 @model X.PagedList.IPagedList<WebApplication1.Models.CourseHasStudent>
 @{
-    ViewData["Title"] = "Index2";
+    ViewData["Title"] = "Βαθμολογία ανά εξάμηνο";
 }
-<h1>Index2</h1>
+<h1>Βαθμολογία ανά εξάμηνο</h1>
+
 
 <p>
-    <a asp-action="Create">Create New</a>
+
 </p>
 
 <form asp-action="Index2" method="get">
@@ -31,10 +32,10 @@
         <thead>
             <tr>
                 <th>
-                    Βαθμός
+                    Όνομα Μαθήματος
                 </th>
                 <th>
-                    Όνομα Μαθήματος
+                    Βαθμός
                 </th>
                 <th>
                     Εξάμηνο
@@ -47,10 +48,10 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.GradeCourseStudent)
+                        @Html.DisplayFor(modelItem => item.IdCourseNavigation.CourseTitle)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.IdCourseNavigation.CourseTitle)
+                        @Html.DisplayFor(modelItem => item.GradeCourseStudent)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.IdCourseNavigation.CourseSemaster)

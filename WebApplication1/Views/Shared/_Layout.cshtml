@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white aria-label=" Third navbar example" border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebApplication1</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -36,7 +36,6 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Professors</a>
                             <ul class="dropdown-menu" aria-labelledby="dropdown03">
-                                <li><a class="dropdown-item" asp-area="" asp-controller="CourseHasStudents" asp-action="Index">Professors</a></li>
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Professors" asp-action="Professors">Προβολή λίστας βαθμολογίας ανά μάθημα</a></li>
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Professors" asp-action="Professors2">Καταχώρηση βαθμολογίας ανά μάθημα</a></li>
                             </ul>
@@ -50,7 +49,7 @@
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Students" asp-action="Create">Καταχώρηση φοιτητών</a></li>
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Courses"  asp-action="Index">Προβολή μαθημάτων</a></li>
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Courses" asp-action="Index2">Ανάθεση μαθήματος σε καθηγητή</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Courses" asp-action="Index3">Δήλωση μαθήματος σε φοιτητή</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Students" asp-action="Index2">Δήλωση μαθήματος σε φοιτητή</a></li>
                             </ul>
                         </li>
                     </ul>

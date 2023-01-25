@@ -1,0 +1,29 @@
+﻿@model WebApplication1.Models.Student
+@{
+    ViewData["Title"] = "Εγγεγραμμένα μαθήματα φοιτητή";
+}
+<h1>Subjects</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Κωδικός Μαθήματος
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.CourseHasStudents)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdCourse)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<p>
+<a asp-action="Register" asp-route-id="@Model.RegistrationNumber">Δήλωση νέου μαθήματος</a>
+</p>

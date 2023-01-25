@@ -7,10 +7,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Βαθμολογία φοιτητών ανά μάθημα</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    
 </p>
 
 <form asp-action="Index" method="get">
@@ -27,13 +27,13 @@
     <thead>
         <tr>
             <th>
-                Βαθμός
+                Αριθμός Μητρώου
             </th>
             <th>
                 Όνομα Μαθήματος
             </th>
             <th>
-                Αριθμός Μητρώου
+                Βαθμός
             </th>
             <th></th>
         </tr>
@@ -43,13 +43,13 @@
         {  
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.GradeCourseStudent)
+                @Html.DisplayFor(modelItem => item.RegistrationNumber)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IdCourseNavigation.CourseTitle)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.RegistrationNumber)
+                @Html.DisplayFor(modelItem => item.GradeCourseStudent)
             </td>
             <td>
                     <a asp-action="Edit" asp-route-id="@item.Pk">Edit</a> |
