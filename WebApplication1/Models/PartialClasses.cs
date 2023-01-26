@@ -24,7 +24,11 @@ namespace WebApplication1.Models
     [ModelMetadataType(typeof(CourseHasStudentsMetadata))]
     public partial class CourseHasStudent
     {
+        
+    }
+    [ModelMetadataType(typeof(StudentsMetadata))]
+    public partial class Student
+    {
 
     }
-
 }
